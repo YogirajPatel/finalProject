@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 const initialFormState = {
   firstName: "",
@@ -12,12 +12,12 @@ const initialFormState = {
 };
 
 const Form = () => {
+  const fileInputRef = useRef(null);
   const [formData, setFormData] = useState(initialFormState);
   const [formErrors, setFormErrors] = useState({});
   const [inputArr, setInputArr] = useState([]);
   const [index, setIndex] = useState();
   const [triggerForUpdateSubmit, setTriggerForUpdateSubmit] = useState(false);
-  const [focused, setFocused] = useState(true);
 
   let {
     firstName,
@@ -94,6 +94,7 @@ const Form = () => {
       }
       setFormData(initialFormState);
       setFormErrors({});
+      fileInputRef.current.value = "";
     } else {
       setFormErrors(errors);
     }
@@ -162,40 +163,46 @@ const Form = () => {
     <>
       <form
         onSubmit={onHandleSubmit}
-        className="max-w-3xl mx-auto bg-purple-300 p-6 md:p-8 lg:p-10 xl:p-12 border rounded-md"
+        className="max-w-3xl mx-auto bg-purple-300 p-6 md:p-8 lg:p-10 xl:p-12 border-4 border-purple-600 rounded-md"
       >
         <div className="mb-4 flex justify-center font-bold text-4xl  ">
           <h1 className="border-3 border-purple-600 relative bg-gradient-to-r from-purple-500 to-blue-500 text-transparent bg-clip-text ">
             Registration Form
           </h1>
         </div>
-        {/* =================================================================================================      */}
-        <div className="flex justify-center ">
-          <img
-            src={
-              formData.profilePic
-                ? URL.createObjectURL(formData.profilePic)
-                : "default-image.jpg"
-            }
-            alt="Your Image Will Display Here"
-            className="w-40 h-40 rounded-md origin-center border-4 mt-8 border-purple-600 "
-          />
-        </div>
+
+        {formData.profilePic && (
+          <div className="flex justify-center ">
+            <img
+              src={URL.createObjectURL(formData.profilePic)}
+              alt="Your Will Display Here"
+              className="w-40 h-40 rounded-md origin-center border mt-8 border-purple-600 "
+            />
+          </div>
+        )}
+
+        {!formData.profilePic && (
+          <div className="flex justify-center mt-8 ">
+            <p className="w-40 h-40 text-center rounded-md border  border-purple-600  ">
+              Image Is Not Uploaded Yet.
+            </p>
+          </div>
+        )}
 
         <div className="mb-4 mt-4 flex justify-center">
           <label
             htmlFor="profilePic"
-            className="block sm:text-lg font-medium text-gray-700 mb-2"
+            className="block sm:text-lg font-medium text-gray-700 mb-2 mr-2"
           >
-            profilePic
+            ProfilePic:
           </label>
 
           <input
             type="file"
             id="profilePic"
             name="profilePic"
-            //   value={formData.profilePic}
             accept="image/png, image/jpg, image/jpeg"
+            ref={fileInputRef}
             onChange={handleFileChange}
           />
           {formErrors.profilePic && (
@@ -208,9 +215,9 @@ const Form = () => {
         <div className="mb-4">
           <label
             htmlFor="firstName"
-            className="block sm:text-lg font-medium text-gray-700 mb-2"
+            className="block sm:text-lg font-semibold text-gray-700 mb-2"
           >
-            First Name
+            First Name:
           </label>
           <input
             type="text"
@@ -228,9 +235,9 @@ const Form = () => {
         <div className="mb-4">
           <label
             htmlFor="lastName"
-            className="block font-medium text-gray-700 mb-2"
+            className="block font-semibold text-gray-700 mb-2"
           >
-            Last Name
+            Last Name:
           </label>
           <input
             type="text"
@@ -248,9 +255,9 @@ const Form = () => {
         <div className="mb-4">
           <label
             htmlFor="birthDate"
-            className="block font-medium text-gray-700 mb-2"
+            className="block font-semibold text-gray-700 mb-2"
           >
-            DOB
+            DOB:
           </label>
           <input
             type="date"
@@ -268,9 +275,9 @@ const Form = () => {
         <div className="mb-4">
           <label
             htmlFor="placeOfBirth"
-            className="block font-medium text-gray-700 mb-2"
+            className="block font-semibold text-gray-700 mb-2"
           >
-            Place of Birth
+            Place of Birth:
           </label>
           <input
             type="text"
@@ -288,9 +295,9 @@ const Form = () => {
         <div className="mb-4">
           <label
             htmlFor="phoneNumber"
-            className="block font-medium text-gray-700 mb-2"
+            className="block font-semibold text-gray-700 mb-2"
           >
-            Phone Number
+            Phone Number:
           </label>
           <input
             type="text"
@@ -309,9 +316,9 @@ const Form = () => {
         <div className="mb-4">
           <label
             htmlFor="addressLine1"
-            className="block font-medium text-gray-700 mb-2"
+            className="block font-semibold text-gray-700 mb-2"
           >
-            addressLine1
+            AddressLine1:
           </label>
           <textarea
             type="textarea"
@@ -329,9 +336,9 @@ const Form = () => {
         <div className="mb-4">
           <label
             htmlFor="addressLine2"
-            className="block font-medium text-gray-700 mb-2"
+            className="block font-semibold text-gray-700 mb-2"
           >
-            addressLine2
+            AddressLine2:
           </label>
           <textarea
             type="textarea"
@@ -360,23 +367,25 @@ const Form = () => {
       <table className="table-auto border-separate border-spacing-1 w-full mt-10  rounded-md">
         <thead>
           <tr className=" bg-orange-400 text-white uppercase text-sm leading-normal ">
-            <th className="py-3 px-6 text-left border rounded-md">
+            <th className="py-3 px-6 text-center border rounded-md">
               Profile Photo
             </th>
-            <th className="py-3 px-6 text-left border rounded-md">
+            <th className="py-3 px-6 text-center border rounded-md ">
               First Name
             </th>
-            <th className="py-3 px-6 text-left border rounded-md">Last Name</th>
-            <th className="py-3 px-6 text-left border rounded-md">DOB</th>
-            <th className="py-3 px-6 text-left border rounded-md">
+            <th className="py-3 px-6 text-center border rounded-md">
+              Last Name
+            </th>
+            <th className="py-3 px-6 text-center border rounded-md">DOB</th>
+            <th className="py-3 px-6 text-center border rounded-md">
               Place Of Birth
             </th>
-            <th className="py-3 px-6 text-left border rounded-md">
+            <th className="py-3 px-6 text-center border rounded-md">
               Phone Number
             </th>
-            <th className="py-3 px-6 text-left border rounded-md">Address</th>
-            <th className="py-3 px-6 text-left border rounded-md">Update</th>
-            <th className="py-3 px-6 text-left border rounded-md">Delete</th>
+            <th className="py-3 px-6 text-center border rounded-md">Address</th>
+            <th className="py-3 px-6 text-center border rounded-md">Update</th>
+            <th className="py-3 px-6 text-center border rounded-md">Delete</th>
           </tr>
         </thead>
         <tbody className="text-gray-600 text-sm font-light">
@@ -385,28 +394,28 @@ const Form = () => {
               return (
                 <tr
                   key={i}
-                  className="border-b bg-orange-100 font-medium hover:bg-gray-100 hover:font-medium"
+                  className="border-b bg-orange-100 font-medium hover:bg-orange-50 hover:font-medium"
                 >
-                  <td className="py-3 px-6 text-left">
+                  <td className="py-1 px-1 flex justify-center align-middle ">
                     <img
                       src={
-                        formData.profilePic
-                          ? URL.createObjectURL(formData.profilePic)
+                        item.profilePic
+                          ? URL.createObjectURL(item.profilePic)
                           : "default-image.jpg"
                       }
-                      alt="Your Image Will Display Here"
-                      className="w-40 h-40 rounded-md origin-center border-4 mt-8 border-purple-600 "
+                      alt="Your  Will Display Here"
+                      className=" m-1 w-16 h-16 rounded-md origin-center border-4 border-purple-600 "
                     />
                   </td>
-                  <td className="py-3 px-6 text-left">{item.firstName}</td>
-                  <td className="py-3 px-6 text-left">{item.lastName}</td>
-                  <td className="py-3 px-6 text-left">{item.birthDate}</td>
-                  <td className="py-3 px-6 text-left">{item.placeOfBirth}</td>
-                  <td className="py-3 px-6 text-left">{item.phoneNumber}</td>
-                  <td className="py-3 px-6 text-left">
+                  <td className="py-3 px-3 text-center">{item.firstName}</td>
+                  <td className="py-3 px-3 text-center">{item.lastName}</td>
+                  <td className="py-3 px-3 text-center">{item.birthDate}</td>
+                  <td className="py-3 px-3 text-center">{item.placeOfBirth}</td>
+                  <td className="py-3 px-3 text-center">{item.phoneNumber}</td>
+                  <td className="py-3 px-3 text-center">
                     {item.addressLine1},{item.addressLine2}
                   </td>
-                  <td className="py-3 px-6 text-left">
+                  <td className="py-3 px-6 text-center">
                     <button
                       className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                       onClick={() => onUpdate(i)}
@@ -414,7 +423,7 @@ const Form = () => {
                       Update
                     </button>
                   </td>
-                  <td className="py-3 px-6 text-left">
+                  <td className="py-3 px-6 text-center">
                     <button
                       className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                       onClick={() => onDelete(i)}
