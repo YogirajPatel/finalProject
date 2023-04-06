@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const initialFormState = {
   firstName: "",
   lastName: "",
-  //   profilePic: null,
+  profilePic: null,
   birthDate: "",
   placeOfBirth: "",
   addressLine1: "",
@@ -16,7 +16,7 @@ const Form = () => {
   const [formErrors, setFormErrors] = useState({});
   const [inputArr, setInputArr] = useState([]);
   const [index, setIndex] = useState();
-  const [bolin, setBolin] = useState(false);
+  const [triggerForUpdateSubmit, setTriggerForUpdateSubmit] = useState(false);
 
   let {
     firstName,
@@ -26,6 +26,7 @@ const Form = () => {
     addressLine1,
     addressLine2,
     phoneNumber,
+    profilePic,
   } = formData;
 
   const handleInputChange = (event) => {
@@ -52,6 +53,7 @@ const Form = () => {
       addressLine1,
       addressLine2,
       phoneNumber,
+      profilePic,
     } = inputArr[i];
     setFormData({
       firstName,
@@ -61,32 +63,31 @@ const Form = () => {
       addressLine1,
       addressLine2,
       phoneNumber,
+      profilePic,
     });
-    setBolin(true);
+    setTriggerForUpdateSubmit(true);
     setIndex(i);
   }
 
-  //   const handleFileChange = (event) => {
-  //     const file = event.target.files[0];
-  //     setFormData({
-  //       ...formData,
-  //       profilePic: file,
-  //     });
-  //   };
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setFormData({
+      ...formData,
+      profilePic: file,
+    });
+  };
 
   const onHandleSubmit = (event) => {
     event.preventDefault();
     const errors = validateFormData();
     if (Object.keys(errors).length === 0) {
-      if (bolin) {
-        // If bolin is true, then we need to update existing data.
+      if (triggerForUpdateSubmit) {
         const updatedArr = [...inputArr];
         updatedArr[index] = formData;
         setInputArr(updatedArr);
-        setBolin(false);
+        setTriggerForUpdateSubmit(false);
         setIndex(null);
       } else {
-        // Otherwise, create new data.
         setInputArr([...inputArr, formData]);
       }
       setFormData(initialFormState);
@@ -107,6 +108,7 @@ const Form = () => {
       addressLine1,
       addressLine2,
       phoneNumber,
+      profilePic,
     });
   }
 
@@ -114,7 +116,7 @@ const Form = () => {
     const errors = {};
     const currentDate = new Date();
     const eighteenYearsAgo = new Date(
-      currentDate.getFullYear() - 18,
+      currentDate.getFullYear(),
       currentDate.getMonth(),
       currentDate.getDate()
     );
@@ -126,12 +128,12 @@ const Form = () => {
       errors.lastName = "Last name should be at least 2 characters long.";
     }
 
-    // if (
-    //   formData.profilePic &&
-    //   !/^image\/(jpeg|png)$/.test(formData.profilePic.type)
-    // ) {
-    //   errors.profilePic = "Profile pic should be a JPG or PNG file.";
-    // }
+    if (
+      formData.profilePic &&
+      !/^image\/(jpeg|png)$/.test(formData.profilePic.type)
+    ) {
+      errors.profilePic = "Profile pic should be a JPG or PNG file.";
+    }
     if (!formData.birthDate || birthDate > eighteenYearsAgo) {
       errors.birthDate = "Birth date should be at least 18 years before.";
     }
@@ -156,18 +158,18 @@ const Form = () => {
   return (
     <>
       <form onSubmit={onHandleSubmit}>
-        {/* <div>
-        <label htmlFor="profilePic">profilePic</label>
-        <input
-          type="file"
-          id="profilePic"
-          name="profilePic"
-          //   value={formData.profilePic}
-          accept="image/png, image/jpg, image/jpeg"
-          onChange={handleFileChange}
-        />
-        {formErrors.profilePic && <span>{formErrors.profilePic}</span>}
-      </div> */}
+        <div>
+          <label htmlFor="profilePic">profilePic</label>
+          <input
+            type="file"
+            id="profilePic"
+            name="profilePic"
+            value={formData.profilePic}
+            accept="image/png, image/jpg, image/jpeg"
+            onChange={handleFileChange}
+          />
+          {formErrors.profilePic && <span>{formErrors.profilePic}</span>}
+        </div>
         <div>
           <label htmlFor="firstName">First Name*</label>
           <input
@@ -247,8 +249,10 @@ const Form = () => {
           {formErrors.addressLine2 && <span>{formErrors.addressLine2}</span>}
         </div>
 
-        <button onClick={!bolin ? onHandleSubmit : onHandleUpdate}>
-          {!bolin ? `Submit` : `Update`}
+        <button
+          onClick={!triggerForUpdateSubmit ? onHandleSubmit : onHandleUpdate}
+        >
+          {!triggerForUpdateSubmit ? `Submit` : `Update`}
         </button>
       </form>
       <table border="1" width="100%">
