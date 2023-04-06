@@ -26,7 +26,6 @@ const Form = () => {
     addressLine1,
     addressLine2,
     phoneNumber,
-    profilePic,
   } = formData;
 
   const handleInputChange = (event) => {
@@ -69,13 +68,15 @@ const Form = () => {
     setIndex(i);
   }
 
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    setFormData({
-      ...formData,
-      profilePic: file,
-    });
-  };
+  // const handleFileChange = (event) => {
+  //   const file = event.target.files[0];
+  //   console.log(event.target.files[0]);
+
+  //   setFormData({
+  //     ...formData,
+  //     profilePic: file,
+  //   });
+  // };
 
   const onHandleSubmit = (event) => {
     event.preventDefault();
@@ -108,18 +109,14 @@ const Form = () => {
       addressLine1,
       addressLine2,
       phoneNumber,
-      profilePic,
     });
+    setInputArr(updatedArr);
   }
 
   const validateFormData = () => {
     const errors = {};
     const currentDate = new Date();
-    const eighteenYearsAgo = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth(),
-      currentDate.getDate()
-    );
+
     const birthDate = new Date(formData.birthDate);
     if (!formData.firstName || formData.firstName.length < 2) {
       errors.firstName = "First name should be at least 2 characters long.";
@@ -128,14 +125,14 @@ const Form = () => {
       errors.lastName = "Last name should be at least 2 characters long.";
     }
 
-    if (
-      formData.profilePic &&
-      !/^image\/(jpeg|png)$/.test(formData.profilePic.type)
-    ) {
-      errors.profilePic = "Profile pic should be a JPG or PNG file.";
-    }
-    if (!formData.birthDate || birthDate > eighteenYearsAgo) {
-      errors.birthDate = "Birth date should be at least 18 years before.";
+    // if (
+    //   !formData.profilePic &&
+    //   !/^(image\/(jpg|jpeg|png))$/.test(formData.profilePic.type)
+    // ) {
+    //   errors.profilePic = "Profile pic should be a JPG or PNG file.";
+    // }
+    if (!formData.birthDate || birthDate > currentDate) {
+      errors.birthDate = "A birthday cannot be from future.";
     }
     if (!formData.placeOfBirth || formData.placeOfBirth.length < 2) {
       errors.placeOfBirth =
@@ -154,142 +151,224 @@ const Form = () => {
     }
     return errors;
   };
-
+  // ================================================================================================
   return (
     <>
-      <form onSubmit={onHandleSubmit}>
-        <div>
-          <label htmlFor="profilePic">profilePic</label>
-          <input
-            type="file"
-            id="profilePic"
-            name="profilePic"
-            value={formData.profilePic}
-            accept="image/png, image/jpg, image/jpeg"
-            onChange={handleFileChange}
-          />
-          {formErrors.profilePic && <span>{formErrors.profilePic}</span>}
+      <form
+        onSubmit={onHandleSubmit}
+        className="max-w-3xl mx-auto bg-purple-200 p-6 md:p-8 lg:p-10 xl:p-12 border rounded-md"
+      >
+        <div className="mb-4 flex justify-center font-bold text-4xl">
+          <h1 className="relative bg-gradient-to-r from-purple-500 to-blue-500 text-transparent bg-clip-text ">
+            Registration Form
+          </h1>
         </div>
-        <div>
-          <label htmlFor="firstName">First Name*</label>
+        <div className="mb-4">
+          <label
+            htmlFor="firstName"
+            className="block sm:text-lg font-medium text-gray-700 mb-2"
+          >
+            First Name
+          </label>
           <input
             type="text"
             id="firstName"
             name="firstName"
             value={formData.firstName}
             onChange={handleInputChange}
+            className="block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 sm:text-lg   bg-white text-gray-900"
           />
-          {formErrors.firstName && <span>{formErrors.firstName}</span>}
+          {formErrors.firstName && (
+            <span className="text-red-500">{formErrors.firstName}</span>
+          )}
         </div>
-        <div>
-          <label htmlFor="lastName">Last Name*</label>
+        <div className="mb-4">
+          <label
+            htmlFor="lastName"
+            className="block font-medium text-gray-700 mb-2"
+          >
+            Last Name
+          </label>
           <input
             type="text"
             id="lastName"
             name="lastName"
             value={formData.lastName}
             onChange={handleInputChange}
+            className="block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 sm:text-lg bg-white text-gray-900"
           />
-          {formErrors.lastName && <span>{formErrors.lastName}</span>}
+          {formErrors.lastName && (
+            <span className="text-red-500">{formErrors.lastName}</span>
+          )}
         </div>
-        <div>
-          <label htmlFor="phoneNumber">DOB</label>
+        <div className="mb-4">
+          <label
+            htmlFor="birthDate"
+            className="block font-medium text-gray-700 mb-2"
+          >
+            DOB
+          </label>
           <input
             type="date"
             id="birthDate"
             name="birthDate"
             value={formData.birthDate}
             onChange={handleInputChange}
+            className="block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 sm:text-lg bg-white text-gray-900"
           />
-          {formErrors.birthDate && <span>{formErrors.birthDate}</span>}
+          {formErrors.birthDate && (
+            <span className="text-red-500">{formErrors.birthDate}</span>
+          )}
         </div>
-        <div>
-          <label htmlFor="placeOfBirth">placeOfBirth</label>
+        <div className="mb-4">
+          <label
+            htmlFor="placeOfBirth"
+            className="block font-medium text-gray-700 mb-2"
+          >
+            Place of Birth
+          </label>
           <input
             type="text"
             id="placeOfBirth"
             name="placeOfBirth"
             value={formData.placeOfBirth}
             onChange={handleInputChange}
+            className="block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 sm:text-lg bg-white text-gray-900"
           />
-          {formErrors.placeOfBirth && <span>{formErrors.placeOfBirth}</span>}
+          {formErrors.placeOfBirth && (
+            <span className="text-red-500">{formErrors.placeOfBirth}</span>
+          )}
         </div>
-        <div>
-          <label htmlFor="phoneNumber">phoneNumber</label>
+        <div className="mb-4">
+          <label
+            htmlFor="phoneNumber"
+            className="block font-medium text-gray-700 mb-2"
+          >
+            Phone Number
+          </label>
           <input
             type="text"
             id="phoneNumber"
             name="phoneNumber"
             value={formData.phoneNumber}
             onChange={handleInputChange}
+            className="block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 sm:text-lg bg-white text-gray-900 "
           />
-          {formErrors.phoneNumber && <span>{formErrors.phoneNumber}</span>}
+          {formErrors.phoneNumber && (
+            <span className="text-red-500">{formErrors.phoneNumber}</span>
+          )}
         </div>
 
-        <div>
-          <label htmlFor="phoneNumber">addressLine1</label>
+        <div className="mb-4">
+          <label
+            htmlFor="addressLine1"
+            className="block font-medium text-gray-700 mb-2"
+          >
+            addressLine1
+          </label>
           <textarea
             type="textarea"
             id="addressLine1"
             name="addressLine1"
             value={formData.addressLine1}
             onChange={handleInputChange}
+            className="block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 sm:text-lg bg-white text-gray-900"
           />
-          {formErrors.addressLine1 && <span>{formErrors.addressLine1}</span>}
+          {formErrors.addressLine1 && (
+            <span className="text-red-500">{formErrors.addressLine1}</span>
+          )}
         </div>
-        <div>
-          <label htmlFor="phoneNumber">addressLine2</label>
+        <div className="mb-4">
+          <label
+            htmlFor="addressLine2"
+            className="block font-medium text-gray-700 mb-2"
+          >
+            addressLine2
+          </label>
           <textarea
             type="textarea"
             id="addressLine2"
             name="addressLine2"
             value={formData.addressLine2}
             onChange={handleInputChange}
+            className="block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 sm:text-lg bg-white text-gray-900"
           />
-          {formErrors.addressLine2 && <span>{formErrors.addressLine2}</span>}
+          {formErrors.addressLine2 && (
+            <span className="text-red-500">{formErrors.addressLine2}</span>
+          )}
         </div>
 
         <button
+          class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline grid justify-center"
           onClick={!triggerForUpdateSubmit ? onHandleSubmit : onHandleUpdate}
         >
           {!triggerForUpdateSubmit ? `Submit` : `Update`}
         </button>
       </form>
-      <table border="1" width="100%">
-        <tr>
-          <td>Profile Photo</td>
-          <td>First Name</td>
-          <td>Last Name</td>
-          <td>DOB</td>
-          <td>Place Of Birth</td>
-          <td>Phone Number</td>
-          <td>Address</td>
-          <td>Update</td>
-          <td>Delete</td>
-        </tr>
 
-        {inputArr &&
-          inputArr.map((item, i) => {
-            return (
-              <tr key={i}>
-                <td>console.log("profile photo")</td>
-                <td>{item.firstName}</td>
-                <td>{item.lastName}</td>
-                <td>{item.birthDate}</td>
-                <td>{item.placeOfBirth}</td>
-                <td>{item.phoneNumber}</td>
-                <td>
-                  {item.addressLine1},{item.addressLine2}
-                </td>
-                <td>
-                  <button onClick={() => onUpdate(i)}>Update</button>
-                </td>
-                <td>
-                  <button onClick={() => onDelete(i)}>Delete</button>
-                </td>
-              </tr>
-            );
-          })}
+      {/* ============================================================================================ */}
+
+      <table className="table-auto border-separate border-spacing-1 w-full mt-10  rounded-md">
+        <thead>
+          <tr className=" bg-orange-400 text-white uppercase text-sm leading-normal ">
+            <th className="py-3 px-6 text-left border rounded-md">
+              Profile Photo
+            </th>
+            <th className="py-3 px-6 text-left border rounded-md">
+              First Name
+            </th>
+            <th className="py-3 px-6 text-left border rounded-md">Last Name</th>
+            <th className="py-3 px-6 text-left border rounded-md">DOB</th>
+            <th className="py-3 px-6 text-left border rounded-md">
+              Place Of Birth
+            </th>
+            <th className="py-3 px-6 text-left border rounded-md">
+              Phone Number
+            </th>
+            <th className="py-3 px-6 text-left border rounded-md">Address</th>
+            <th className="py-3 px-6 text-left border rounded-md">Update</th>
+            <th className="py-3 px-6 text-left border rounded-md">Delete</th>
+          </tr>
+        </thead>
+        <tbody className="text-gray-600 text-sm font-light">
+          {inputArr &&
+            inputArr.map((item, i) => {
+              return (
+                <tr
+                  key={i}
+                  className="border-b bg-orange-100 font-medium hover:bg-gray-100 hover:font-medium"
+                >
+                  <td className="py-3 px-6 text-left">
+                    console.log("profile photo")
+                  </td>
+                  <td className="py-3 px-6 text-left">{item.firstName}</td>
+                  <td className="py-3 px-6 text-left">{item.lastName}</td>
+                  <td className="py-3 px-6 text-left">{item.birthDate}</td>
+                  <td className="py-3 px-6 text-left">{item.placeOfBirth}</td>
+                  <td className="py-3 px-6 text-left">{item.phoneNumber}</td>
+                  <td className="py-3 px-6 text-left">
+                    {item.addressLine1},{item.addressLine2}
+                  </td>
+                  <td className="py-3 px-6 text-left">
+                    <button
+                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                      onClick={() => onUpdate(i)}
+                    >
+                      Update
+                    </button>
+                  </td>
+                  <td className="py-3 px-6 text-left">
+                    <button
+                      className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                      onClick={() => onDelete(i)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+        </tbody>
       </table>
     </>
   );
