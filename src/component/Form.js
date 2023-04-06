@@ -182,8 +182,8 @@ const Form = () => {
         )}
 
         {!formData.profilePic && (
-          <div className="flex justify-center mt-8 ">
-            <p className="w-40 h-40 text-center rounded-md border  border-purple-600  ">
+          <div className="flex justify-center items-center mt-8">
+            <p className="w-40 h-40 text-center rounded-md border border-purple-600">
               Image Is Not Uploaded Yet.
             </p>
           </div>
@@ -226,7 +226,7 @@ const Form = () => {
             value={formData.firstName}
             onChange={handleInputChange}
             placeholder="eg. John"
-            className="block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:bg-orange-100  sm:text-lg   bg-white text-gray-900"
+            className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:bg-orange-100  sm:text-lg   bg-white text-gray-900"
           />
           {formErrors.firstName && (
             <span className="text-red-500">{formErrors.firstName}</span>
@@ -246,7 +246,7 @@ const Form = () => {
             value={formData.lastName}
             onChange={handleInputChange}
             placeholder="eg. Doe"
-            className="block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:bg-orange-100  sm:text-lg bg-white text-gray-900"
+            className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:bg-orange-100  sm:text-lg bg-white text-gray-900"
           />
           {formErrors.lastName && (
             <span className="text-red-500">{formErrors.lastName}</span>
@@ -266,7 +266,7 @@ const Form = () => {
             value={formData.birthDate}
             onChange={handleInputChange}
             placeholder="eg. DD-MM-YYYY "
-            className="block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:bg-orange-100  sm:text-lg bg-white text-gray-900"
+            className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:bg-orange-100  sm:text-lg bg-white text-gray-900"
           />
           {formErrors.birthDate && (
             <span className="text-red-500">{formErrors.birthDate}</span>
@@ -286,7 +286,7 @@ const Form = () => {
             value={formData.placeOfBirth}
             onChange={handleInputChange}
             placeholder="eg. India"
-            className="block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:bg-orange-100  sm:text-lg bg-white text-gray-900"
+            className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:bg-orange-100  sm:text-lg bg-white text-gray-900"
           />
           {formErrors.placeOfBirth && (
             <span className="text-red-500">{formErrors.placeOfBirth}</span>
@@ -306,7 +306,7 @@ const Form = () => {
             value={formData.phoneNumber}
             onChange={handleInputChange}
             placeholder="eg. 2134587695"
-            className="block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:bg-orange-100  sm:text-lg bg-white text-gray-900 "
+            className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:bg-orange-100  sm:text-lg bg-white text-gray-900 "
           />
           {formErrors.phoneNumber && (
             <span className="text-red-500">{formErrors.phoneNumber}</span>
@@ -327,7 +327,7 @@ const Form = () => {
             value={formData.addressLine1}
             onChange={handleInputChange}
             placeholder="House No."
-            className="block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:bg-orange-100  sm:text-lg bg-white text-gray-900"
+            className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:bg-orange-100  sm:text-lg bg-white text-gray-900"
           />
           {formErrors.addressLine1 && (
             <span className="text-red-500">{formErrors.addressLine1}</span>
@@ -347,19 +347,20 @@ const Form = () => {
             value={formData.addressLine2}
             onChange={handleInputChange}
             placeholder="Street And Locality, State, Country"
-            className="block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:bg-orange-100  sm:text-lg bg-white text-gray-900"
+            className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:bg-orange-100  sm:text-lg bg-white text-gray-900"
           />
           {formErrors.addressLine2 && (
             <span className="text-red-500">{formErrors.addressLine2}</span>
           )}
         </div>
-
-        <button
-          class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline grid justify-center"
-          onClick={!triggerForUpdateSubmit ? onHandleSubmit : onHandleUpdate}
-        >
-          {!triggerForUpdateSubmit ? `Submit` : `Update`}
-        </button>
+        <div className="flex justify-center">
+          <button
+            class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            onClick={!triggerForUpdateSubmit ? onHandleSubmit : onHandleUpdate}
+          >
+            {!triggerForUpdateSubmit ? `Submit` : `Update`}
+          </button>
+        </div>
       </form>
 
       {/* ============================================================================================ */}
