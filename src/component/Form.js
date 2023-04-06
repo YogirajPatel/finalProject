@@ -17,6 +17,7 @@ const Form = () => {
   const [inputArr, setInputArr] = useState([]);
   const [index, setIndex] = useState();
   const [triggerForUpdateSubmit, setTriggerForUpdateSubmit] = useState(false);
+  const [focused, setFocused] = useState(true);
 
   let {
     firstName,
@@ -26,6 +27,7 @@ const Form = () => {
     addressLine1,
     addressLine2,
     phoneNumber,
+    profilePic,
   } = formData;
 
   const handleInputChange = (event) => {
@@ -33,6 +35,15 @@ const Form = () => {
     setFormData({
       ...formData,
       [name]: value,
+    });
+  };
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    console.log(event.target.files[0]);
+
+    setFormData({
+      ...formData,
+      profilePic: file,
     });
   };
 
@@ -68,16 +79,6 @@ const Form = () => {
     setIndex(i);
   }
 
-  // const handleFileChange = (event) => {
-  //   const file = event.target.files[0];
-  //   console.log(event.target.files[0]);
-
-  //   setFormData({
-  //     ...formData,
-  //     profilePic: file,
-  //   });
-  // };
-
   const onHandleSubmit = (event) => {
     event.preventDefault();
     const errors = validateFormData();
@@ -109,45 +110,50 @@ const Form = () => {
       addressLine1,
       addressLine2,
       phoneNumber,
+      profilePic,
     });
     setInputArr(updatedArr);
   }
 
   const validateFormData = () => {
     const errors = {};
-    const currentDate = new Date();
 
+    const currentDate = new Date();
     const birthDate = new Date(formData.birthDate);
+
     if (!formData.firstName || formData.firstName.length < 2) {
-      errors.firstName = "First name should be at least 2 characters long.";
+      errors.firstName =
+        "First name is required and it should be at least 2 characters long.";
     }
     if (!formData.lastName || formData.lastName.length < 2) {
-      errors.lastName = "Last name should be at least 2 characters long.";
+      errors.lastName =
+        "Last name is required and it should be at least 2 characters long.";
     }
 
-    // if (
-    //   !formData.profilePic &&
-    //   !/^(image\/(jpg|jpeg|png))$/.test(formData.profilePic.type)
-    // ) {
-    //   errors.profilePic = "Profile pic should be a JPG or PNG file.";
-    // }
+    if (
+      !formData.profilePic ||
+      !/^(image\/(jpg|jpeg|png))$/.test(formData.profilePic.type)
+    ) {
+      errors.profilePic = "Profile pic should be a JPG or PNG file.";
+    }
     if (!formData.birthDate || birthDate > currentDate) {
       errors.birthDate = "A birthday cannot be from future.";
     }
     if (!formData.placeOfBirth || formData.placeOfBirth.length < 2) {
       errors.placeOfBirth =
-        "Place of birth should be at least 2 characters long.";
+        "Place of birth is required and it should be at least 2 characters long.";
     }
     if (!formData.addressLine1 || formData.addressLine1.length < 5) {
       errors.addressLine1 =
-        "Address line 1 should be at least 5 characters long.";
+        "Address line 1 is required and it should be at least 5 characters long.";
     }
     if (!formData.addressLine2 || formData.addressLine2.length < 5) {
       errors.addressLine2 =
-        "Address line 2 should be at least 5 characters long.";
+        "Address line 2 is required and it should be at least 5 characters long.";
     }
     if (!formData.phoneNumber || !/^\d{10}$/.test(formData.phoneNumber)) {
-      errors.phoneNumber = "Phone number should be a 10-digit number.";
+      errors.phoneNumber =
+        "Phone number is required and it should be a 10-digit number.";
     }
     return errors;
   };
@@ -156,13 +162,49 @@ const Form = () => {
     <>
       <form
         onSubmit={onHandleSubmit}
-        className="max-w-3xl mx-auto bg-purple-200 p-6 md:p-8 lg:p-10 xl:p-12 border rounded-md"
+        className="max-w-3xl mx-auto bg-purple-300 p-6 md:p-8 lg:p-10 xl:p-12 border rounded-md"
       >
-        <div className="mb-4 flex justify-center font-bold text-4xl">
-          <h1 className="relative bg-gradient-to-r from-purple-500 to-blue-500 text-transparent bg-clip-text ">
+        <div className="mb-4 flex justify-center font-bold text-4xl  ">
+          <h1 className="border-3 border-purple-600 relative bg-gradient-to-r from-purple-500 to-blue-500 text-transparent bg-clip-text ">
             Registration Form
           </h1>
         </div>
+        {/* =================================================================================================      */}
+        <div className="flex justify-center ">
+          <img
+            src={
+              formData.profilePic
+                ? URL.createObjectURL(formData.profilePic)
+                : "default-image.jpg"
+            }
+            alt="Your Image Will Display Here"
+            className="w-40 h-40 rounded-md origin-center border-4 mt-8 border-purple-600 "
+          />
+        </div>
+
+        <div className="mb-4 mt-4 flex justify-center">
+          <label
+            htmlFor="profilePic"
+            className="block sm:text-lg font-medium text-gray-700 mb-2"
+          >
+            profilePic
+          </label>
+
+          <input
+            type="file"
+            id="profilePic"
+            name="profilePic"
+            //   value={formData.profilePic}
+            accept="image/png, image/jpg, image/jpeg"
+            onChange={handleFileChange}
+          />
+          {formErrors.profilePic && (
+            <span className="text-red-500">{formErrors.profilePic}</span>
+          )}
+        </div>
+
+        {/* ==================================================================================================     */}
+
         <div className="mb-4">
           <label
             htmlFor="firstName"
@@ -176,7 +218,8 @@ const Form = () => {
             name="firstName"
             value={formData.firstName}
             onChange={handleInputChange}
-            className="block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 sm:text-lg   bg-white text-gray-900"
+            placeholder="eg. John"
+            className="block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:bg-orange-100  sm:text-lg   bg-white text-gray-900"
           />
           {formErrors.firstName && (
             <span className="text-red-500">{formErrors.firstName}</span>
@@ -195,7 +238,8 @@ const Form = () => {
             name="lastName"
             value={formData.lastName}
             onChange={handleInputChange}
-            className="block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 sm:text-lg bg-white text-gray-900"
+            placeholder="eg. Doe"
+            className="block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:bg-orange-100  sm:text-lg bg-white text-gray-900"
           />
           {formErrors.lastName && (
             <span className="text-red-500">{formErrors.lastName}</span>
@@ -214,7 +258,8 @@ const Form = () => {
             name="birthDate"
             value={formData.birthDate}
             onChange={handleInputChange}
-            className="block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 sm:text-lg bg-white text-gray-900"
+            placeholder="eg. DD-MM-YYYY "
+            className="block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:bg-orange-100  sm:text-lg bg-white text-gray-900"
           />
           {formErrors.birthDate && (
             <span className="text-red-500">{formErrors.birthDate}</span>
@@ -233,7 +278,8 @@ const Form = () => {
             name="placeOfBirth"
             value={formData.placeOfBirth}
             onChange={handleInputChange}
-            className="block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 sm:text-lg bg-white text-gray-900"
+            placeholder="eg. India"
+            className="block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:bg-orange-100  sm:text-lg bg-white text-gray-900"
           />
           {formErrors.placeOfBirth && (
             <span className="text-red-500">{formErrors.placeOfBirth}</span>
@@ -252,7 +298,8 @@ const Form = () => {
             name="phoneNumber"
             value={formData.phoneNumber}
             onChange={handleInputChange}
-            className="block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 sm:text-lg bg-white text-gray-900 "
+            placeholder="eg. 2134587695"
+            className="block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:bg-orange-100  sm:text-lg bg-white text-gray-900 "
           />
           {formErrors.phoneNumber && (
             <span className="text-red-500">{formErrors.phoneNumber}</span>
@@ -272,7 +319,8 @@ const Form = () => {
             name="addressLine1"
             value={formData.addressLine1}
             onChange={handleInputChange}
-            className="block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 sm:text-lg bg-white text-gray-900"
+            placeholder="House No."
+            className="block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:bg-orange-100  sm:text-lg bg-white text-gray-900"
           />
           {formErrors.addressLine1 && (
             <span className="text-red-500">{formErrors.addressLine1}</span>
@@ -291,7 +339,8 @@ const Form = () => {
             name="addressLine2"
             value={formData.addressLine2}
             onChange={handleInputChange}
-            className="block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 sm:text-lg bg-white text-gray-900"
+            placeholder="Street And Locality, State, Country"
+            className="block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:bg-orange-100  sm:text-lg bg-white text-gray-900"
           />
           {formErrors.addressLine2 && (
             <span className="text-red-500">{formErrors.addressLine2}</span>
@@ -339,7 +388,15 @@ const Form = () => {
                   className="border-b bg-orange-100 font-medium hover:bg-gray-100 hover:font-medium"
                 >
                   <td className="py-3 px-6 text-left">
-                    console.log("profile photo")
+                    <img
+                      src={
+                        formData.profilePic
+                          ? URL.createObjectURL(formData.profilePic)
+                          : "default-image.jpg"
+                      }
+                      alt="Your Image Will Display Here"
+                      className="w-40 h-40 rounded-md origin-center border-4 mt-8 border-purple-600 "
+                    />
                   </td>
                   <td className="py-3 px-6 text-left">{item.firstName}</td>
                   <td className="py-3 px-6 text-left">{item.lastName}</td>
