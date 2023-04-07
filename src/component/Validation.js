@@ -41,11 +41,11 @@ const Validation = () => {
   };
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    console.log(event.target.files[0]);
+    // console.log(event.target.files[0]);
 
     setFormData({
       ...formData,
-      profilePic: file,
+      profilePic: file || null,
     });
   };
 
@@ -124,18 +124,26 @@ const Validation = () => {
     const currentDate = new Date();
     const birthDate = new Date(formData.birthDate);
 
-    if (!formData.firstName || formData.firstName.length < 2) {
+    if (
+      !formData.firstName ||
+      formData.firstName.trim().length < 2 ||
+      !/^[A-Za-z]+$/.test(formData.firstName)
+    ) {
       errors.firstName =
-        "First name is required and it should be at least 2 characters long.";
+        "First name is required and should contain atleat 2 alphabetical characters.";
     }
-    if (!formData.lastName || formData.lastName.length < 2) {
+    if (
+      !formData.lastName ||
+      formData.lastName.trim().length < 2 ||
+      !/^[A-Za-z]+$/.test(formData.lastName)
+    ) {
       errors.lastName =
-        "Last name is required and it should be at least 2 characters long.";
+        "Last name is required and should contain atleat 2 alphabetical characters.";
     }
 
     if (
       !formData.profilePic ||
-      !/^(image\/(jpg|jpeg|png))$/.test(formData.profilePic.type)
+      !/^(image\/(jpg|jpeg|png))$/.test(formData.profilePic?.type)
     ) {
       errors.profilePic = "Profile pic should be a JPG or PNG file.";
     }
@@ -146,11 +154,11 @@ const Validation = () => {
       errors.placeOfBirth =
         "Place of birth is required and it should be at least 2 characters long.";
     }
-    if (!formData.addressLine1 || formData.addressLine1.length < 5) {
+    if (!formData.addressLine1 || formData.addressLine1.trim().length < 5) {
       errors.addressLine1 =
         "Address line 1 is required and it should be at least 5 characters long.";
     }
-    if (!formData.addressLine2 || formData.addressLine2.length < 5) {
+    if (!formData.addressLine2 || formData.addressLine2.trim().length < 5) {
       errors.addressLine2 =
         "Address line 2 is required and it should be at least 5 characters long.";
     }
@@ -162,7 +170,16 @@ const Validation = () => {
   };
   return (
     <>
-      <UserForm onHandleSubmit={onHandleSubmit} formData={formData} />
+      <UserForm
+        onHandleSubmit={onHandleSubmit}
+        formData={formData}
+        formErrors={formErrors}
+        handleFileChange={handleFileChange}
+        handleInputChange={handleInputChange}
+        fileInputRef={fileInputRef}
+        triggerForUpdateSubmit={triggerForUpdateSubmit}
+        onHandleUpdate={onHandleUpdate}
+      />
 
       <Table
         inputArr={inputArr}
