@@ -5,6 +5,10 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    fontFamily: {
+      'dancing': ['Dancing Script', 'cursive'],
+      // Add any other custom font families here
+    }
   },
   plugins: [],
 }

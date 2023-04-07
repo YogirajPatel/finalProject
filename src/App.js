@@ -1,9 +1,13 @@
 import Validation from "./component/Validation";
+import "./App.css";
+
 function App() {
   return (
-    <div className=" bg-fuchsia-50">
-      <Validation />
-    </div>
+    <>
+      <div>
+        <Validation />
+      </div>
+    </>
   );
 }
 

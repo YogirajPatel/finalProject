@@ -5,7 +5,7 @@ const Table = ({ inputArr, onUpdate, onYogiraj }) => {
     <>
       <table
         id="section2"
-        className="table-auto border-amber-400 border-4 border-separate border-spacing-1 w-full mt-8  rounded-md"
+        className="table-auto  border-separate border-spacing-1 w-full mt-8  rounded-md"
       >
         <thead>
           <tr className=" bg-orange-400 text-white uppercase text-sm leading-normal ">

@@ -18,10 +18,10 @@ const UserForm = ({
       <form
         id="section1"
         onSubmit={onHandleSubmit}
-        className="max-w-3xl mx-auto bg-purple-300  p-6 md:p-8 lg:p-10 xl:p-12 border-4 border-purple-600 rounded-md"
+        className="max-w-3xl mx-auto bg-transparent backdrop-blur-xl p-6 md:p-8 lg:p-10 xl:p-12 border-4 border-purple-600 rounded-md"
       >
         <div className="mb-4 flex justify-center font-bold text-4xl  ">
-          <h1 className="border-3 border-purple-600 relative bg-gradient-to-r from-purple-500 to-blue-500 text-transparent bg-clip-text ">
+          <h1 className=" font-dancing  relative bg-gradient-to-r from-purple-500 to-blue-500 text-transparent bg-clip-text ">
             Registration Form
           </h1>
         </div>
@@ -30,7 +30,7 @@ const UserForm = ({
           <div className="flex justify-center ">
             <img
               src={URL.createObjectURL(formData.profilePic)}
-              alt="Your Will Display Here"
+              alt="Your Image Will Display Here"
               className="w-40 h-40 rounded-md origin-center border mt-8 border-purple-600 "
             />
           </div>
@@ -38,7 +38,7 @@ const UserForm = ({
 
         {!formData.profilePic && (
           <div className="flex justify-center items-center mt-8">
-            <p className="w-40 h-40 text-center rounded-md border border-purple-600 p-9 font-medium">
+            <p className="w-40 h-40 text-center rounded-md border border-purple-600 p-9 font-medium text-white">
               Image Is Not Uploaded Yet.
             </p>
           </div>
@@ -47,9 +47,9 @@ const UserForm = ({
         <div className="mb-4 mt-4 flex justify-center">
           <label
             htmlFor="profilePic"
-            className="block sm:text-lg font-medium text-gray-700 mb-2 mr-2"
+            className="block sm:text-lg font-medium text-white mb-2 mr-2"
           >
-            ProfilePic:
+            Profile Picture<span className=" text-red-600">*</span> :
           </label>
 
           <input
@@ -59,18 +59,19 @@ const UserForm = ({
             accept="image/png, image/jpg, image/jpeg"
             ref={fileInputRef}
             onChange={handleFileChange}
+            className=" text-white "
           />
           {formErrors.profilePic && (
-            <span className="text-red-500">{formErrors.profilePic}</span>
+            <span className="text-red-600">{formErrors.profilePic}</span>
           )}
         </div>
 
         <div className="mb-4">
           <label
             htmlFor="firstName"
-            className="block sm:text-lg font-semibold text-gray-700 mb-2"
+            className="block sm:text-lg font-semibold text-white mb-2"
           >
-            First Name:
+            First Name<span className=" text-red-600">*</span> :
           </label>
           <input
             type="text"
@@ -79,18 +80,18 @@ const UserForm = ({
             value={formData.firstName}
             onChange={handleInputChange}
             placeholder="eg. John"
-            className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:bg-orange-100  sm:text-lg   bg-white text-gray-900"
+            className="block w-full px-4 py-2 border rounded-md focus:outline-none  focus:ring-2 focus:ring-purple-600 focus:bg-orange-100  sm:text-lg   bg-white text-gray-900"
           />
           {formErrors.firstName && (
-            <span className="text-red-500">{formErrors.firstName}</span>
+            <span className="text-red-600">{formErrors.firstName}</span>
           )}
         </div>
         <div className="mb-4">
           <label
             htmlFor="lastName"
-            className="block font-semibold text-gray-700 mb-2"
+            className="block font-semibold text-white mb-2"
           >
-            Last Name:
+            Last Name<span className=" text-red-600">*</span> :
           </label>
           <input
             type="text"
@@ -102,15 +103,15 @@ const UserForm = ({
             className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:bg-orange-100  sm:text-lg bg-white text-gray-900"
           />
           {formErrors.lastName && (
-            <span className="text-red-500">{formErrors.lastName}</span>
+            <span className="text-red-600">{formErrors.lastName}</span>
           )}
         </div>
         <div className="mb-4">
           <label
             htmlFor="birthDate"
-            className="block font-semibold text-gray-700 mb-2"
+            className="block font-semibold text-white mb-2"
           >
-            DOB:
+            DOB<span className=" text-red-600">*</span> :
           </label>
           <input
             type="date"
@@ -122,15 +123,15 @@ const UserForm = ({
             className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:bg-orange-100  sm:text-lg bg-white text-gray-900"
           />
           {formErrors.birthDate && (
-            <span className="text-red-500">{formErrors.birthDate}</span>
+            <span className="text-red-600">{formErrors.birthDate}</span>
           )}
         </div>
         <div className="mb-4">
           <label
             htmlFor="placeOfBirth"
-            className="block font-semibold text-gray-700 mb-2"
+            className="block font-semibold text-white mb-2"
           >
-            Place of Birth:
+            Place of Birth<span className=" text-red-600">*</span> :
           </label>
           <input
             type="text"
@@ -142,15 +143,15 @@ const UserForm = ({
             className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:bg-orange-100  sm:text-lg bg-white text-gray-900"
           />
           {formErrors.placeOfBirth && (
-            <span className="text-red-500">{formErrors.placeOfBirth}</span>
+            <span className="text-red-600">{formErrors.placeOfBirth}</span>
           )}
         </div>
         <div className="mb-4">
           <label
             htmlFor="phoneNumber"
-            className="block font-semibold text-gray-700 mb-2"
+            className="block font-semibold text-white mb-2"
           >
-            Phone Number:
+            Phone Number<span className=" text-red-600">*</span> :
           </label>
           <input
             type="text"
@@ -162,16 +163,16 @@ const UserForm = ({
             className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:bg-orange-100  sm:text-lg bg-white text-gray-900 "
           />
           {formErrors.phoneNumber && (
-            <span className="text-red-500">{formErrors.phoneNumber}</span>
+            <span className="text-red-600">{formErrors.phoneNumber}</span>
           )}
         </div>
 
         <div className="mb-4">
           <label
             htmlFor="addressLine1"
-            className="block font-semibold text-gray-700 mb-2"
+            className="block font-semibold text-white mb-2"
           >
-            AddressLine1:
+            Address Line 1<span className=" text-red-600">*</span> :
           </label>
           <textarea
             type="textarea"
@@ -183,15 +184,15 @@ const UserForm = ({
             className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:bg-orange-100  sm:text-lg bg-white text-gray-900"
           />
           {formErrors.addressLine1 && (
-            <span className="text-red-500">{formErrors.addressLine1}</span>
+            <span className="text-red-600">{formErrors.addressLine1}</span>
           )}
         </div>
         <div className="mb-4">
           <label
             htmlFor="addressLine2"
-            className="block font-semibold text-gray-700 mb-2"
+            className="block font-semibold text-white mb-2"
           >
-            AddressLine2:
+            Address Line 2<span className=" text-red-600">*</span> :
           </label>
           <textarea
             type="textarea"
@@ -203,7 +204,7 @@ const UserForm = ({
             className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:bg-orange-100  sm:text-lg bg-white text-gray-900"
           />
           {formErrors.addressLine2 && (
-            <span className="text-red-500">{formErrors.addressLine2}</span>
+            <span className="text-red-600">{formErrors.addressLine2}</span>
           )}
         </div>
         <div className="flex justify-center">

@@ -145,10 +145,10 @@ const Validation = () => {
       !formData.profilePic ||
       !/^(image\/(jpg|jpeg|png))$/.test(formData.profilePic?.type)
     ) {
-      errors.profilePic = "Profile pic should be a JPG or PNG file.";
+      errors.profilePic = "Profile picture not updated yet.";
     }
     if (!formData.birthDate || birthDate > currentDate) {
-      errors.birthDate = "A birthday cannot be from future.";
+      errors.birthDate = "Birthdate should not be from future.";
     }
     if (!formData.placeOfBirth || formData.placeOfBirth.length < 2) {
       errors.placeOfBirth =
@@ -156,11 +156,11 @@ const Validation = () => {
     }
     if (!formData.addressLine1 || formData.addressLine1.trim().length < 5) {
       errors.addressLine1 =
-        "Address line 1 is required and it should be at least 5 characters long.";
+        "Address Line 1 is required and it should be at least 5 characters long.";
     }
     if (!formData.addressLine2 || formData.addressLine2.trim().length < 5) {
       errors.addressLine2 =
-        "Address line 2 is required and it should be at least 5 characters long.";
+        "Address Line 2 is required and it should be at least 5 characters long.";
     }
     if (!formData.phoneNumber || !/^\d{10}$/.test(formData.phoneNumber)) {
       errors.phoneNumber =
@@ -180,6 +180,11 @@ const Validation = () => {
         triggerForUpdateSubmit={triggerForUpdateSubmit}
         onHandleUpdate={onHandleUpdate}
       />
+      <div className="my-16 flex justify-center font-bold text-4xl border-3 border-purple-600 ">
+        <h1 className=" font-dancing border-4 rounded-md p-4 border-purple-600 relative bg-gradient-to-r from-purple-500 to-blue-500 text-transparent bg-clip-text ">
+          User Details
+        </h1>
+      </div>
 
       <Table
         inputArr={inputArr}
