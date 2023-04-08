@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import Table from "./Table";
 import UserForm from "./UserForm";
+import "../styles/style.css";
 
 const initialFormState = {
   firstName: "",
@@ -180,10 +181,8 @@ const Validation = () => {
         triggerForUpdateSubmit={triggerForUpdateSubmit}
         onHandleUpdate={onHandleUpdate}
       />
-      <div className="my-16 flex justify-center font-bold text-4xl border-3 border-purple-600 ">
-        <h1 className=" font-dancing border-4 rounded-md p-4 border-purple-600 relative bg-gradient-to-r from-purple-500 to-blue-500 text-transparent bg-clip-text ">
-          User Details
-        </h1>
+      <div className="userDetailDiv">
+        <h1 className="userDetail">User Details</h1>
       </div>
 
       <Table

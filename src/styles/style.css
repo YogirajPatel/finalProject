@@ -1,0 +1,111 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+.userDetailDiv {
+  @apply my-16 flex justify-center font-bold text-4xl border-purple-600;
+}
+.userDetail {
+  @apply font-dancing border-4 rounded-md p-4 border-purple-600 relative bg-gradient-to-r from-purple-500 to-blue-500 text-transparent bg-clip-text;
+}
+
+/* =================================================================================================================================== */
+.tableHeader {
+  @apply py-3 px-6 text-center border rounded-md;
+}
+.table {
+  @apply table-auto  border-separate border-spacing-1 w-full mt-8  rounded-md;
+}
+.tableHeader {
+  @apply bg-orange-400 text-white uppercase text-sm leading-normal;
+}
+
+.dynamicTable {
+  @apply py-3 px-6 text-center border text-xl rounded-md;
+}
+.dTableUpdateButt {
+  @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded;
+}
+.dTableDeleteButt {
+  @apply bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded;
+}
+.dTableData {
+  @apply border-b bg-orange-100 font-medium hover:bg-orange-200 text-lg;
+}
+.dTableBtt {
+  @apply py-3 px-6 text-center rounded-md;
+}
+.dTablePP {
+  @apply m-1 w-16 h-16 rounded-md origin-center border-4 border-purple-600;
+}
+.dTableFont {
+  @apply text-gray-600 text-sm font-light;
+}
+.dTablePPtd {
+  @apply py-1 px-1 flex justify-center align-middle;
+}
+/* ======================================================================================================================================== */
+.scrollTopBtt {
+  @apply bg-gradient-to-br mt-4 from-red-500 to-purple-400 float-right mr-8 px-4 py-2 mb-4 rounded-md text-white text-3xl font-medium;
+}
+.form {
+  @apply max-w-3xl mx-auto bg-transparent backdrop-blur-lg p-6 md:p-8 lg:p-10 xl:p-12 border-4 border-purple-600 rounded-md sm:w-full;
+}
+.error {
+  @apply text-red-600;
+}
+
+.allFormInput {
+  @apply block font-semibold text-white mb-2 sm:w-full;
+}
+.allFormInputInside {
+  @apply block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:bg-orange-100  bg-white text-gray-900;
+}
+.formSubmitButton {
+  @apply bg-purple-600 hover:bg-purple-700 text-white font-bold mt-4 py-2 px-4 rounded focus:outline-none;
+}
+
+.ppLable {
+  @apply block sm:text-lg font-medium text-white mb-2 mr-2;
+}
+.ppLableDiv {
+  @apply mb-4 mt-4 flex justify-center;
+}
+
+.formRegHeading {
+  @apply font-dancing  relative bg-gradient-to-r from-purple-500 to-blue-500 text-transparent bg-clip-text;
+}
+.formRegHeadingDiv {
+  @apply mb-4 flex justify-center font-bold text-4xl;
+}
+.formPP {
+  @apply w-40 h-40 rounded-md origin-center border mt-8 border-purple-600;
+}
+.formPPdiv {
+  @apply flex justify-center;
+}
+.formImgText {
+  @apply w-40 h-40 text-center rounded-md border border-purple-600 p-9 font-medium text-white;
+}
+.formImgTextDiv {
+  @apply flex justify-center items-center mt-8;
+}
+.formAllInputDiv {
+  @apply mb-4;
+}
+
+/* ======================================================================================================================================== */
+
+.navHeading {
+  @apply text-gray-50 font-dancing text-3xl hover:underline;
+}
+.navHeadingSym {
+  @apply text-4xl text-gray-50 ml-2;
+}
+
+.soluteImg {
+  @apply bg-white hover:border box-border hover:border-purple-600 my-4 ml-8 mr-28 h-12 rounded-md;
+}
+.navvy {
+  @apply flex mb-8  bg-stone-900;
+}
