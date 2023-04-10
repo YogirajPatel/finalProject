@@ -36,10 +36,10 @@
   @apply py-3 px-6 text-center rounded-md;
 }
 .dTablePP {
-  @apply m-1 w-16 h-16 rounded-md origin-center border-4 border-purple-600;
+  @apply relative m-1 w-16 h-16 rounded-md origin-center border-4 border-purple-600;
 }
 .dTableFont {
-  @apply text-gray-600 text-sm font-light;
+  @apply text-sm font-light text-gray-600;
 }
 .dTablePPtd {
   @apply py-1 px-1 flex justify-center align-middle;
@@ -85,8 +85,9 @@
   @apply flex justify-center;
 }
 .formImgText {
-  @apply w-40 h-40 text-center rounded-md border border-purple-600 p-9 font-medium text-white;
+  @apply w-40 h-40 rounded-md border border-purple-600  font-medium text-white flex items-center text-center;
 }
+
 .formImgTextDiv {
   @apply flex justify-center items-center mt-8;
 }
@@ -108,4 +109,25 @@
 }
 .navvy {
   @apply flex mb-8  bg-stone-900;
+}
+.navDiv {
+  @apply container mx-auto py-4 flex justify-end items-center;
+}
+.navItem {
+  @apply flex items-center mr-16;
+}
+
+/* =========================================================================================== */
+
+.tooltip {
+  @apply relative inline-block;
+}
+
+.tooltiptext {
+  @apply absolute bottom-full left-1/2 ml-[-50px] w-[400px] p-2 text-center bg-orange-100 text-gray-600 rounded-md opacity-0 pointer-events-none duration-300;
+  z-index: 1;
+}
+
+.dTablePP:hover + .tooltiptext {
+  @apply opacity-100 pointer-events-auto;
 }

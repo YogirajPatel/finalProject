@@ -108,7 +108,7 @@ const UserForm = ({
         </div>
         <div className="formAllInputDiv">
           <label htmlFor="placeOfBirth" className="allFormInput">
-            Place of Birth<span className=" error">*</span> :
+            Place Of Birth<span className=" error">*</span> :
           </label>
           <input
             type="text"

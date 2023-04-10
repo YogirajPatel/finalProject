@@ -34,6 +34,7 @@ const Validation = () => {
   } = formData;
 
   const handleInputChange = (event) => {
+    setFormErrors({});
     const { name, value } = event.target;
     setFormData({
       ...formData,
@@ -127,19 +128,20 @@ const Validation = () => {
 
     if (
       !formData.firstName ||
-      formData.firstName.trim().length < 2 ||
-      !/^[A-Za-z]+$/.test(formData.firstName)
+      formData.firstName.length < 2 ||
+      !/^[a-zA-Z\s]+$/g.test(formData.firstName)
     ) {
       errors.firstName =
-        "First name is required and should contain atleat 2 alphabetical characters.";
+        "First name is required and should contain at least 2 alphabetical characters.";
     }
+
     if (
       !formData.lastName ||
-      formData.lastName.trim().length < 2 ||
-      !/^[A-Za-z]+$/.test(formData.lastName)
+      formData.lastName.length < 2 ||
+      !/^[a-zA-Z\s]+$/g.test(formData.lastName)
     ) {
-      errors.lastName =
-        "Last name is required and should contain atleat 2 alphabetical characters.";
+      errors.lasttName =
+        "Last name is required and should contain at least 2 alphabetical characters.";
     }
 
     if (

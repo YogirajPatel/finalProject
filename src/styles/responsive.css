@@ -1,0 +1,103 @@
+@media (max-width: 1200px) {
+  .tableHeader {
+    display: grid;
+    width: 100%;
+    float: left;
+    margin-bottom: 2px;
+  }
+  .table {
+    display: inline-block;
+  }
+  .dTableData {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 2px;
+    border-radius: 8px;
+  }
+
+  .dTablePPtd {
+    display: flex;
+    justify-content: center;
+  }
+
+  .dTablePP {
+    position: relative;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .dTableBtt {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+  }
+
+  .dTableUpdateButt {
+    background-color: green;
+    color: white;
+  }
+
+  .dTableDeleteButt {
+    background-color: red;
+    color: white;
+  }
+
+  .navvy {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .soluteImg {
+    margin-bottom: 5px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .navDiv {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navItem {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .navHeadingSym {
+    font-size: 1.5rem;
+  }
+
+  .navHeading {
+    font-size: 1rem;
+  }
+
+  .tooltiptext {
+    position: absolute;
+    text-align: center;
+    transform: translateX(-50%);
+    width: 16rem;
+    padding: 2px;
+    text-align: center;
+    background-color: #feebc8;
+    color: #666;
+    border-radius: 0.25rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+  }
+
+  .dTablePP:focus + .tooltiptext {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+}

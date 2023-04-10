@@ -13,10 +13,10 @@ const NavBar = () => {
         <img className="soluteImg" alt="solutelabs" src={image} />
       </a>
 
-      <div class="container mx-auto py-4 flex justify-end items-center">
+      <div class="navDiv">
         <div class="flex">
           <a href="#section1">
-            <div class="flex items-center mr-16">
+            <div class="navItem">
               <span className="navHeadingSym">&#128221;</span>
               <span class="navHeading">Form</span>
             </div>
