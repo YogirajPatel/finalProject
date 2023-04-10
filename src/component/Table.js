@@ -68,7 +68,11 @@ const Table = ({ inputArr, onUpdate, onYogiraj }) => {
                   <td className="dTableBtt">
                     <button
                       className="dTableUpdateButt"
-                      onClick={() => onUpdate(i)}
+                      onClick={() => {
+                        onUpdate(i);
+                        window.location.href = "#section1";
+                      }}
+                      href="section1"
                     >
                       Update
                     </button>
@@ -76,7 +80,10 @@ const Table = ({ inputArr, onUpdate, onYogiraj }) => {
                   <td className="dTableBtt">
                     <button
                       className="dTableDeleteButt"
-                      onClick={() => onYogiraj(i)}
+                      onClick={() => {
+                        onYogiraj(i);
+                        window.location.href = "#section1";
+                      }}
                     >
                       Delete
                     </button>

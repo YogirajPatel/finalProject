@@ -42,6 +42,7 @@ const Validation = () => {
     });
   };
   const handleFileChange = (event) => {
+    setFormErrors({});
     const file = event.target.files[0];
     // console.log(event.target.files[0]);
 
@@ -148,7 +149,7 @@ const Validation = () => {
       !formData.profilePic ||
       !/^(image\/(jpg|jpeg|png))$/.test(formData.profilePic?.type)
     ) {
-      errors.profilePic = "Profile picture not updated yet.";
+      errors.profilePic = "Profile picture not choosen.";
     }
     if (!formData.birthDate || birthDate > currentDate) {
       errors.birthDate = "Birthdate should not be from future.";
