@@ -66,6 +66,7 @@ const UserForm = ({
             value={formData.firstName}
             onChange={handleInputChange}
             placeholder="eg. John"
+            autocomplete="off"
             className="allFormInputInside"
           />
           {formErrors.firstName && (
@@ -83,6 +84,7 @@ const UserForm = ({
             value={formData.lastName}
             onChange={handleInputChange}
             placeholder="eg. Doe"
+            autocomplete="off"
             className="allFormInputInside"
           />
           {formErrors.lastName && (
@@ -100,6 +102,7 @@ const UserForm = ({
             value={formData.birthDate}
             onChange={handleInputChange}
             placeholder="eg. DD-MM-YYYY "
+            autocomplete="off"
             className="allFormInputInside"
           />
           {formErrors.birthDate && (
@@ -117,6 +120,7 @@ const UserForm = ({
             value={formData.placeOfBirth}
             onChange={handleInputChange}
             placeholder="eg. India"
+            autocomplete="off"
             className="allFormInputInside"
           />
           {formErrors.placeOfBirth && (
@@ -132,8 +136,9 @@ const UserForm = ({
             id="phoneNumber"
             name="phoneNumber"
             value={formData.phoneNumber}
-            onChange={handleInputChange}
+            onInput={handleInputChange}
             placeholder="eg. 2134587695"
+            autocomplete="off"
             className="allFormInputInside "
           />
           {formErrors.phoneNumber && (
@@ -152,6 +157,7 @@ const UserForm = ({
             value={formData.addressLine1}
             onChange={handleInputChange}
             placeholder="House No."
+            autocomplete="off"
             className="allFormInputInside"
           />
           {formErrors.addressLine1 && (
@@ -169,6 +175,7 @@ const UserForm = ({
             value={formData.addressLine2}
             onChange={handleInputChange}
             placeholder="Street And Locality, State, Country"
+            autocomplete="off"
             className="allFormInputInside"
           />
           {formErrors.addressLine2 && (

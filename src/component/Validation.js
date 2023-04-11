@@ -33,16 +33,35 @@ const Validation = () => {
     profilePic,
   } = formData;
 
+  // const handleInputChange = (event) => {
+  //   const { name, value } = event.target;
+  //   const updatedFormData = { ...formData, [name]: value };
+  //   setFormData(updatedFormData);
+  //   const errors = validateFormData(updatedFormData);
+  //   setFormErrors({ ...formErrors, [name]: errors[name] });
+  // };
+  // const handleInputChange = (event) => {
+  //   const { name, value } = event.target;
+  //   setFormData({
+  //     ...formData,
+  //     [name]: value,
+  //   });
+  // };
+
   const handleInputChange = (event) => {
-    setFormErrors({});
     const { name, value } = event.target;
     setFormData({
       ...formData,
       [name]: value,
     });
+    setFormErrors({
+      ...formErrors,
+      [name]: "",
+    });
   };
+
   const handleFileChange = (event) => {
-    setFormErrors({});
+    // setFormErrors({});
     const file = event.target.files[0];
     // console.log(event.target.files[0]);
 
@@ -50,6 +69,7 @@ const Validation = () => {
       ...formData,
       profilePic: file || null,
     });
+    setFormErrors({ ...formErrors, [event.target.name]: "" });
   };
 
   function onDelete(i) {
@@ -127,21 +147,13 @@ const Validation = () => {
     const currentDate = new Date();
     const birthDate = new Date(formData.birthDate);
 
-    if (
-      !formData.firstName ||
-      formData.firstName.length < 2 ||
-      !/^[a-zA-Z\s]+$/g.test(formData.firstName)
-    ) {
+    if (!formData.firstName || formData.firstName.length < 2) {
       errors.firstName =
         "First name is required and should contain at least 2 alphabetical characters.";
     }
 
-    if (
-      !formData.lastName ||
-      formData.lastName.length < 2 ||
-      !/^[a-zA-Z\s]+$/g.test(formData.lastName)
-    ) {
-      errors.lasttName =
+    if (!formData.lastName || formData.lastName.length < 2) {
+      errors.lastName =
         "Last name is required and should contain at least 2 alphabetical characters.";
     }
 
@@ -173,7 +185,7 @@ const Validation = () => {
     return errors;
   };
   return (
-    <>
+    <div className="userform-container">
       <UserForm
         onHandleSubmit={onHandleSubmit}
         formData={formData}
@@ -199,7 +211,7 @@ const Validation = () => {
         triggerForUpdateSubmit={triggerForUpdateSubmit}
         onHandleUpdate={onHandleUpdate}
       />
-    </>
+    </div>
   );
 };
 
